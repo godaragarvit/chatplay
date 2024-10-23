@@ -49,3 +49,18 @@ sendButton.addEventListener('click', () => {
 //Reference to the 'messages' node in the database
 
 const messagesRef = ref(database, 'messages')
+onChildAdded(messagesRef, (snapshot) => {
+    //Retrieve message date from snapshot
+    const messageData = snapshot.val()
+    //Create a new message element
+
+    const messageElement = document.createElement('div')
+    messageElement.classList.add('message-item')
+    //Display user and message content
+    messageElement.innerHTML = `<strong>${messageData.user}:</strong> ${messageData.message}`
+
+    //Append new message to the message container
+    messageDiv.appendChild(messageElement)
+    //Scroll to the bottom of the message container
+    messageDiv.scrollTop = messageDiv.scrollHeight
+})
